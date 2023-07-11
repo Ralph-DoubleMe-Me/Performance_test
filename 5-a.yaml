@@ -1,0 +1,25 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 60
+    - duration: 60
+      arrivalRate: 120
+    - duration: 30
+      arrivalRate: 10
+
+scenarios:
+  - name: '5-a, /space/hmd'
+    flow:
+      - loop:
+          - get:
+              url: '/hmd'
+              qs:
+                type: 'explore' # 동일한 query 값으로 시행, Token 없는 버전
+                take: 10
+                skip: 0
+        count: 10

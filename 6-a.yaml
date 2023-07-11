@@ -1,0 +1,26 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/status'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+    - duration: 20
+      arrivalRate: 10
+    - duration: 30
+      arrivalRate: 15
+    - duration: 60
+      arrivalRate: 20
+    - duration: 30
+      arrivalRate: 10
+  variables: # 토큰 변수 확인
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiIwMUdYUUJRUkZCRjVNRjE1TkNLQURTMUdDSCIsInNlcnZpY2VJZCI6IjAxR1hENzU1MDg5NFBHSFMwS0JUWkVTMVExIiwic2VydmljZU5hbWUiOiJUd2lud29ybGQiLCJ0b2tlbklkIjoiMDFINTFNWkY3Tk43SjNSOTVCUzJKV0czNzQiLCJpYXQiOjE2ODkwNTE0NDYsImV4cCI6MTY4OTA1NTA0Nn0.Rvlum-8xgN5rFhF8jqdh7n_u7eXlISBAsJ0zJSrXt7M'
+
+
+scenarios:
+  - name: '6-a, /status/outage-notice'
+    flow:
+      - loop:
+          - get:
+              url: '/outage-notice'
+              headers:
+                Authorization: 'Bearer {{ token }}'
+        count: 10

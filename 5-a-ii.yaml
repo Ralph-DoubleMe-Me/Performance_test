@@ -1,0 +1,29 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 15
+    - duration: 30
+      arrivalRate: 20
+    - duration: 60
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 10
+  variables: # 토큰 변수 확인
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiIwMUdYUUJRUkZCRjVNRjE1TkNLQURTMUdDSCIsInNlcnZpY2VJZCI6IjAxR1hENzU1MDg5NFBHSFMwS0JUWkVTMVExIiwic2VydmljZU5hbWUiOiJUd2lud29ybGQiLCJ0b2tlbklkIjoiMDFINTFCUTVETUVIN040N0hKSEpDTjdBQ00iLCJpYXQiOjE2ODkwNDE3MzcsImV4cCI6MTY4OTA0NTMzN30.GhEIEd6P7KXg0aR1gy-qFRFBW_WakZ--FUnKwa4drZE'
+
+scenarios:
+  - name: '5-a, /space/hmd'
+    flow:
+      - loop:
+          - get:
+              url: '/hmd'
+              headers:
+                Authorization: 'Bearer {{ token }}'
+              qs:
+                type: 'explore' # 동일한 query 값으로 시행
+                take: 10
+                skip: 0
+        count: 10

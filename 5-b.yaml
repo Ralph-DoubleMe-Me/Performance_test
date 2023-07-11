@@ -1,0 +1,23 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 60
+    - duration: 60
+      arrivalRate: 100
+    - duration: 30
+      arrivalRate: 10
+
+scenarios:
+  - name: '5-b, /space/info'
+    flow:
+      - loop:
+          - get:
+              url: '/info'
+              qs:
+                name: 'aaa' # 동일한 name 값으로 시행
+        count: 10

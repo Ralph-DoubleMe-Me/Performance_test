@@ -1,0 +1,56 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 60
+    - duration: 60
+      arrivalRate: 100
+    - duration: 30
+      arrivalRate: 10
+  variables: # 토큰 변수 확인
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiIwMUdYUUJRUkZCRjVNRjE1TkNLQURTMUdDSCIsInNlcnZpY2VJZCI6IjAxR1hENzU1MDg5NFBHSFMwS0JUWkVTMVExIiwic2VydmljZU5hbWUiOiJUd2lud29ybGQiLCJ0b2tlbklkIjoiMDFINTFNWkY3Tk43SjNSOTVCUzJKV0czNzQiLCJpYXQiOjE2ODkwNTE0NDYsImV4cCI6MTY4OTA1NTA0Nn0.Rvlum-8xgN5rFhF8jqdh7n_u7eXlISBAsJ0zJSrXt7M'
+    position0: # position 랜덤으로 지정되도록
+      - 0
+      - 1
+      - 2
+      - 3
+    position1:
+      - 6
+      - 7
+      - 8
+      - 9
+    position2:
+      - 4
+      - 5
+      - 6
+      - 7
+
+scenarios:
+  - name: '5-i, /space/contents/{spaceId}/{contentId}' # 콘텐츠 위치 변경, xyz 임의 값 입력 필요
+    flow:
+      - loop:
+          - patch:
+              url: '/contents/01GZWX35QH4FMGHASPQTKRC8A1/01H3STC9K44PQQJATH0YE0MME5'
+              headers:
+                Authorization: 'Bearer {{ token }}'
+              json: # input data
+                transform:
+                  position:
+                    x: '{{ position1 }}'
+                    y: '{{ position2 }}'
+                    z: '{{ position0 }}'
+                  rotation:
+                    x: '{{ position0 }}'
+                    y: '{{ position1 }}'
+                    z: '{{ position2 }}'
+                    w: '{{ position0 }}'
+                  scale:
+                    x: '{{ position2 }}'
+                    y: '{{ position0 }}'
+                    z: '{{ position1 }}'
+                  isLocked: false
+        count: 10

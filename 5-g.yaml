@@ -1,0 +1,21 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 100
+    - duration: 60
+      arrivalRate: 100
+    - duration: 10
+      arrivalRate: 200
+    - duration: 60
+      arrivalRate: 200
+    - duration: 30
+      arrivalRate: 1
+
+scenarios:
+  - name: '5-g, /space/contents/{spaceId}/{contentId}'
+    flow:
+      - loop:
+          - get:
+              url: '/content/01GZWX35QH4FMGHASPQTKRC8A1/01H3STC9K44PQQJATH0YE0MME5' # 동일 url로 진행
+        count: 10

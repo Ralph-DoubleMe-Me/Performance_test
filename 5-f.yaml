@@ -1,0 +1,21 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+    - duration: 20
+      arrivalRate: 10
+    - duration: 30
+      arrivalRate: 15
+    - duration: 60
+      arrivalRate: 20
+    - duration: 30
+      arrivalRate: 10
+
+scenarios:
+  - name: '5-f, /space/contents/{spaceId}' # 해당 테스트 진행 시 server die 이슈, TPS 150 으로 테스트
+    flow:
+      - loop:
+          - get:
+              url: '/contents/01GZWX35QH4FMGHASPQTKRC8A1' # 동일 url로 시행
+        count: 10

@@ -1,0 +1,32 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/photon'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 60
+    - duration: 60
+      arrivalRate: 100
+    - duration: 30
+      arrivalRate: 10
+
+scenarios:
+  - name: '7-c, /photon/leave'
+    flow:
+      - loop:
+          - post:
+              url: '/leave'
+              json:
+                Type: 'type'
+                IsInactive: true
+                Reason: 'Reason'
+                AppId: 'AppId'
+                AppVersion: 'AppVersion'
+                Region: 'Region'
+                GameId: 'aaa' # 고정된 name값 입력
+                ActorNr: 1
+                UserId: 'userId'
+                Nickname: 'nickname'
+        count: 10

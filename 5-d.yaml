@@ -1,0 +1,21 @@
+config:
+  target: 'https://gateway-server.dev-twin.world/space'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+    - duration: 20
+      arrivalRate: 30
+    - duration: 30
+      arrivalRate: 60
+    - duration: 60
+      arrivalRate: 100
+    - duration: 30
+      arrivalRate: 10
+
+scenarios:
+  - name: '5-d, /space/vertify-code/{code}'
+    flow:
+      - loop:
+          - get:
+              url: '/vertify-code/W5533' # 동일 url 조회
+        count: 10
